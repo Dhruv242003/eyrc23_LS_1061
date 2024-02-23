@@ -1,10 +1,13 @@
 #include <SPI.h>
+#include<Wire.h>
+
 #include <Wire.h>
 #include "I2Cdev.h"
-#include "MPU6050.h"
+//#include "MPU6050.h"
 #include "Motors.h"
 #include "nrf.h"
-#include "read_angle.h"
+//#include "read_angle.h"
+#include "angle.h"
 #include "Compute_PID.h"
 #include "Indicators.h"
 #include "timers.h"
@@ -22,7 +25,8 @@ void setup() {
 }
 
 void loop() {
-  readSensor();
+  mpu.update();
+//  readSensor();
   Serial.print(ROLL);
   Serial.print(" ");
   // YAW = getEncoderCount();

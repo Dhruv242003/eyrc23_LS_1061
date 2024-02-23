@@ -7,6 +7,7 @@ ISR(TIMER1_COMPA_vect) {
   // readSensor(); // MPU Reading roll
   runIndicator();
   // ROLL = complimentary_filter_roll();
+  ROLL = get_angle();
 }
 
 ISR(TIMER2_COMPA_vect) {
