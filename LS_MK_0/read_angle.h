@@ -2,11 +2,6 @@
 
 MPU6050 mpu;
 
-int16_t ax, ay, az, gx, gy, gz;
-float a[3] = {0, 0, 0}, g[3] = {0, 0, 0};
-const float pi = 3.14159265359, comp_alpha = 0.02, dT = 0.003;
-double ROLL = 0;
-
 void mpu_init() ;
 void readSensor();
 double complimentary_filter_roll();

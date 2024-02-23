@@ -1,29 +1,3 @@
-#define LED_GREEN A0
-#define LED_RED A1
-#define BUZZER 7
-#define HALL_RIGHT A6
-#define HALL_LEFT A7
-
-double base_left = 0;
-double base_right = 0;
-bool base_done = false;
-
-double hall_left = 0;
-double hall_right = 0;
-double hall_sensi = 20;
-bool magnet_detected = false;
-
-bool flag = false;
-unsigned long startTime = 0;
-unsigned long ledStartTime = 0;  
-unsigned long buzzerStartTime = 0;
-
-bool magnetDetected = false;
-unsigned long magnetDetectionStartTime = 0;
-unsigned long magnetDetectionDuration = 1000;  
-
-float pi = 3.14159265359;
-
 void Hall_init();
 void led_init();
 void buzzer_init();

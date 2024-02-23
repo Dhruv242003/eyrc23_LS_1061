@@ -1,8 +1,6 @@
 #include <MPU6050_light.h>
 
 MPU6050 mpu(Wire);
-double ROLL = 0;
-
 void mpu_init();
 double get_angle();
 void printMPUStatus();

@@ -1,25 +1,7 @@
 #include <Arduino.h>
 #include <Encoder.h>
-// Geared Motor
-#define enA 6
-#define in1 A2
-#define in2 A3
-
-// BO Motor
-#define enB 5
-#define in3 9
-#define in4 4
-#define FORWARD	1
-#define BACKWARD 2
-#define STOP 3
-
-int STEER_ANGLE = 0;
 
 Encoder myEnc(2, 3);
-
-#define BO_MIN_PWM 100
-#define DC_MIN_PWM 55
-
 
 void motors_init();
 void dc_motor_init();
@@ -28,8 +10,6 @@ void actuate_DC(int pwm);
 void set_dc_pwm(int pwm);
 void BO_Control(int mode, int speed);
 int getEncoderCount();
-
-
 
 void motors_init()
 {

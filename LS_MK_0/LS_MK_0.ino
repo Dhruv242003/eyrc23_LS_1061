@@ -2,26 +2,18 @@
 #include<Wire.h>
 
 #include <Wire.h>
-#include "I2Cdev.h"
-//#include "MPU6050.h"
+#include "globals.h"
 #include "nrf.h"
 //#include "read_angle.h"
+#include "Motors.h"
 #include "angle.h"
 #include "Compute_PID.h"
 #include "Indicators.h"
-#include "Motors.h"
 #include "timers.h"
-
 
 void setup() {
   Serial.begin(9600);
-  nrf_setup();
-  motors_init();
-  mpu_init();
-  timerSetup();
-  Hall_init();
-  led_init();
-  buzzer_init();
+  setup_all();
 }
 
 void loop() {
@@ -31,4 +23,14 @@ void loop() {
   Serial.print(" ");
   Serial.println(YAW);
   detect_magnet();
+}
+
+void setup_all(){
+  nrf_setup();
+  motors_init();
+  mpu_init();
+  timerSetup();
+  Hall_init();
+  led_init();
+  buzzer_init();
 }
