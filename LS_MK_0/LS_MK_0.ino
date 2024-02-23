@@ -12,12 +12,11 @@ void setup(){
     Serial.begin(9600);
     
     // Motor setups
-    dc_motor_init();
-    bo_motor_init();
+    motors_init();
 }
 
 void loop(){
-    actuate_DC(100);
+    actuate_DC(-100);
 }
 
 
