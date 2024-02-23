@@ -17,6 +17,16 @@ Encoder myEnc(2, 3);
 #define BO_MIN_PWM 100
 #define DC_MIN_PWM 55
 
+void motors_init();
+void dc_motor_init();
+void bo_motor_init();
+void actuate_DC(int pwm);
+void set_dc_pwm(int pwm);
+void BO_Control(int mode, int speed);
+int getEncoderCount();
+
+
+
 void motors_init()
 {
     dc_motor_init();
@@ -44,22 +54,21 @@ void bo_motor_init()
 
 void actuate_DC(int pwm)
 {
-    if
-        if (pwm > 0)
-        {
-            pwm = map(pwm, 0, 255, DC_MIN_PWM, 255);
-            set_dc_pwm(pwm);
-        }
-        else if (pwm < 0)
-        {
-            pwm = map(pwm, 0, -255, DC_MIN_PWM, 255);
-            set_dc_pwm(-pwm);
-        }
-        else
-        {
-            pwm = 0;
-            set_dc_pwm(pwm);
-        }
+  if (pwm > 0)
+  {
+      pwm = map(pwm, 0, 255, DC_MIN_PWM, 255);
+      set_dc_pwm(pwm);
+  }
+  else if (pwm < 0)
+  {
+      pwm = map(pwm, 0, -255, DC_MIN_PWM, 255);
+      set_dc_pwm(-pwm);
+  }
+  else
+  {
+      pwm = 0;
+      set_dc_pwm(pwm);
+  }
 }
 
 void set_dc_pwm(int pwm)
@@ -102,5 +111,7 @@ void BO_Control(int mode, int speed)
 }
 int getEncoderCount()
 {
-    return myEnc.read();
+    return myEnc.read()/10000;
 }
+
+
