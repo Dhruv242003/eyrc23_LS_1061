@@ -55,7 +55,7 @@ void get_NRF_Gains()
     {
 
         radio.read(&receivedValues, sizeof(receivedValues));
-
+        Serial.println(receivedValues.static_tuning);
         if (receivedValues.static_tuning)
         {
             STATIC_KP_ROLL = receivedValues.array[0];
