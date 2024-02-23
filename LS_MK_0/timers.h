@@ -6,6 +6,7 @@ ISR(TIMER1_COMPA_vect) {
   // 100 Hz Timer for reading Roll
   // readSensor(); // MPU Reading roll
   // ROLL = complimentary_filter_roll();
+  ROLL = get_angle();
 }
 
 ISR(TIMER2_COMPA_vect) {
