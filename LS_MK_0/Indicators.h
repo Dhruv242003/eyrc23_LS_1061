@@ -22,25 +22,18 @@ bool magnetDetected = false;
 unsigned long magnetDetectionStartTime = 0;
 unsigned long magnetDetectionDuration = 1000;  
 
-
+float pi = 3.14159265359;
 
 void Hall_init();
-
 void led_init();
-
 void buzzer_init();
-
 void buzzerOn();
-
 void buzzerOff();
-
 bool northDetected();
-
 bool southDetected();
-
 void roll_yaw_indicator();
-
 void detect_magnet();
+void runIndicator();
 
 
 void Hall_init() {
@@ -96,6 +89,7 @@ void roll_yaw_indicator() {
 }
 
 
+
 void detect_magnet() {
 
   if (!base_done) {
@@ -112,15 +106,15 @@ void detect_magnet() {
       digitalWrite(LED_GREEN, HIGH);
       digitalWrite(LED_RED, LOW);
       magnet_detected = true;
-      ledStartTime = millis();     
-      buzzerStartTime = millis(); 
+      ledStartTime = millis();     // Start LED timer
+      buzzerStartTime = millis();  // Start buzzer timer
     } else if (southDetected()) {
       // Negative Magnet
       digitalWrite(LED_GREEN, LOW);
       digitalWrite(LED_RED, HIGH);
       magnet_detected = true;
-      ledStartTime = millis();     
-      buzzerStartTime = millis();  
+      ledStartTime = millis();     // Start LED timer
+      buzzerStartTime = millis();  // Start buzzer timer
     } else {
       digitalWrite(LED_GREEN, LOW);
       digitalWrite(LED_RED, LOW);
@@ -147,3 +141,12 @@ void detect_magnet() {
     buzzerOff();
   }
 }
+
+void runIndicator(){
+  if (RUN_START == 1 || RUN_END == 1) {
+    buzzerOn();
+  } else if(RUN_START == 0 || RUN_END == 0) {
+    buzzerOff();
+  }
+}
+
