@@ -1,27 +1,27 @@
-#include "read_angle.h"
-#include "Motors.h"
-
 void setupTimer1();
 void setupTimer2();
 void timerSetup();
 
 ISR(TIMER1_COMPA_vect) {
   // 100 Hz Timer for reading Roll
-    readSensor(); // MPU Reading roll
+  // readSensor(); // MPU Reading roll
+  // ROLL = complimentary_filter_roll();
 }
 
 ISR(TIMER2_COMPA_vect) {
   // 50 Hz Timer for reading Encoders
   YAW = getEncoderCount();
+  // readSensor();
 }
 
 void setupTimer1() {
+  // Set Timer1 mode to CTC (Clear Timer on Compare Match)
   TCCR1A = 0; 
   TCCR1B = 0;
   TCNT1 = 0;  // Initialize counter value to 0
-  OCR1A = 15999; // Set the value that Timer1 will count up to (100Hz frequency)
+  OCR1A = 15624; // Set the value that Timer1 will count up to for desired frequency (100Hz) - prescaler 1024
   TCCR1B |= (1 << WGM12); // Set WGM12 bit for CTC mode
-  TCCR1B |= (1 << CS11) | (1 << CS10); // Set CS10 and CS11 bits for 64 prescaler
+  TCCR1B |= (1 << CS12) | (1 << CS10); // Set CS10 and CS12 bits for 1024 prescaler
   TIMSK1 |= (1 << OCIE1A); // Enable Timer1 compare interrupt
 }
 

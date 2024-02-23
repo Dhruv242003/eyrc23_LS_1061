@@ -1,6 +1,4 @@
 #include <Arduino.h>
-#include "read_angle.h"
-
 double roll_offfset = 0;
 double error_roll = 0;
 double roll_setpoint = 0;
@@ -66,7 +64,7 @@ void Compute_roll()
   // return outputR;
 }
 
-double Compute_yaw()
+void Compute_yaw()
 {
 
   double Kp = 0, Ki = 0, Kd = 0;

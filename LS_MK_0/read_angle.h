@@ -1,72 +1,38 @@
+#include <Wire.h>
+#include <MPU6050.h>
 
-int16_t ax, ay, az, gx, gy, gz, gnx, gny, gnz;
-float a[3] = {0, 0, 0}, g[3] = {0, 0, 0};
-
-const float pi = 3.14159265359, f_cut = 5, dT = 0.003, comp_alpha = 0.02;
-float ROLL = 0;
-
-const float accel_sf = 16384, gyro_sf = 131;
-/******************/
 MPU6050 mpu;
 
+int16_t ax, ay, az, gx, gy, gz;
+float a[3] = {0, 0, 0}, g[3] = {0, 0, 0};
+const float pi = 3.14159265359, comp_alpha = 0.02, dT = 0.003;
+double ROLL = 0;
+
+void mpu_init() ;
 void readSensor();
-void test();
-void set_offsets();
-void read_accel();
-void read_gyro();
-void complimentary_filter_roll();
-void mpu_init();
+double complimentary_filter_roll();
 
-void readSensor()
-{
-  read_accel();
-  read_gyro();
-  complimentary_filter_roll();
-}
-
-void test()
-{
-  Serial.println("Testing device connections...");
+void mpu_init() {
+  Wire.begin();
+  mpu.initialize();
   Serial.println(mpu.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
 }
 
-void set_offsets()
-{
-  mpu.setXAccelOffset(-1173);
-  mpu.setYAccelOffset(-1221);
-  mpu.setZAccelOffset(895);
 
-  mpu.setXGyroOffset(110);
-  mpu.setYGyroOffset(103);
-  mpu.setZGyroOffset(17);
-}
-
-void read_accel()
-{
+void readSensor() {
   mpu.getAcceleration(&ax, &ay, &az);
-  a[0] = (ax / accel_sf);
-  a[1] = (ay / accel_sf);
-  a[2] = (az / accel_sf);
-}
+  a[0] = ax / 16384.0;
+  a[1] = ay / 16384.0;
+  a[2] = az / 16384.0;
 
-void read_gyro()
-{
   mpu.getRotation(&gx, &gy, &gz);
-  g[0] = (gx / gyro_sf);
-  g[1] = (gy / gyro_sf);
-  g[2] = (gz / gyro_sf);
+  g[0] = gx / 131.0;
+  g[1] = gy / 131.0;
+  g[2] = gz / 131.0;
+
+  ROLL = complimentary_filter_roll();
 }
 
-void complimentary_filter_roll()
-{
-  ROLL = (1 - comp_alpha) * (ROLL + g[0] * dT) + (comp_alpha) * (atan(a[1] / abs(a[2]))) * (180 / 3.14);
-}
-
-void mpu_init()
-{
-  mpu.initialize();
-  test();
-  mpu.setFullScaleAccelRange(0);
-  mpu.setFullScaleGyroRange(0);
-  set_offsets();
+double complimentary_filter_roll() {
+ return (1 - comp_alpha) * (ROLL + g[0] * dT) + (comp_alpha) * (atan(a[1] / abs(a[2]))) * (180.0 / pi);
 }

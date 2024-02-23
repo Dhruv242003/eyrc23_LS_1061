@@ -17,6 +17,7 @@ Encoder myEnc(2, 3);
 #define BO_MIN_PWM 100
 #define DC_MIN_PWM 55
 
+
 void motors_init();
 void dc_motor_init();
 void bo_motor_init();
@@ -111,7 +112,7 @@ void BO_Control(int mode, int speed)
 }
 int getEncoderCount()
 {
-    return myEnc.read()/10000;
+    return myEnc.read()/10;
 }
 
 
