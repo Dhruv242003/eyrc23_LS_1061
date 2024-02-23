@@ -15,7 +15,7 @@ bool magnet_detected = false;
 
 bool flag = false;
 unsigned long startTime = 0;
-unsigned long ledStartTime = 0; 
+unsigned long ledStartTime = 0;  
 unsigned long buzzerStartTime = 0;
 
 bool magnetDetected = false;

@@ -1,32 +1,18 @@
 #include <Arduino.h>
-double roll_offfset = 0;
-double error_roll = 0;
-double roll_setpoint = 0;
-double error_yaw = 0;
+
 double outputR, outputY;
 float max_angle_enc = 2;
 bool STOP_FLAG = true;
 double I_roll, previous_roll, D_roll;
 double I_yaw, previous_yaw, D_yaw;
-double YAW;
 
-void Compute_roll();
 
-void Compute_yaw();
+double Compute_roll();
+double Compute_yaw();
 
-void Compute_roll()
+
+double Compute_roll(double error_roll)
 {
-
-  double Kp = 0, Ki = 0, Kd = 0;
-  double roll_angle;
-
-  // Obtain the current tilt angle and make a copy to avoid
-  // abrupt changes during current PID computation loop
-  roll_angle = ROLL;
-
-  roll_setpoint = roll_offfset + outputY;
-
-  error_roll = roll_setpoint - roll_angle;
 
   // Turn motors off if robot falls beyond recoverable angle and await human rescue
   if (abs(error_roll) >= 75)
@@ -35,7 +21,7 @@ void Compute_roll()
     return;
   }
 
-  if (abs(error_roll) < 3.0)
+  if (!istraversing)
   {
     Kp = STATIC_KP_ROLL;
     Ki = STATIC_KI_ROLL;
@@ -50,7 +36,7 @@ void Compute_roll()
     Kd = TRAVERSE_KD_ROLL;
   }
 
-  D_roll = (roll_angle - previous_roll); // curr - prev
+  D_roll = (ROLL - previous_roll); // curr - prev
 
   I_roll += Ki * (error_roll);
   I_roll = constrain(I_roll, -255, 255);
@@ -59,20 +45,14 @@ void Compute_roll()
 
   outputR = constrain(outputR, -255, 255);
 
-  previous_roll = roll_angle;
+  previous_roll = ROLL;
 
-  // return outputR;
+  return outputR;
 }
 
-void Compute_yaw()
+double Compute_yaw(double error_yaw)
 {
-
-  double Kp = 0, Ki = 0, Kd = 0;
-  
-  double YAW_Copy = YAW;
-  error_yaw = 0 - YAW_Copy;
-
-  if (!STOP_FLAG)
+  if (istraversing)
   {
     Kp = STATIC_KP_YAW;
     Ki = STATIC_KI_YAW;
@@ -89,13 +69,13 @@ void Compute_yaw()
   I_yaw += Ki * (error_yaw);
   I_yaw = constrain(I_yaw, -255, 255);
 
-  D_yaw = (YAW_Copy - previous_yaw); // Curr - prev.
+  D_yaw = (YAW - previous_yaw); // Curr - prev.
 
   outputY = Kp * error_yaw + Ki * I_yaw - Kd * D_yaw; // same signs of kp and kd term.
 
   outputY = constrain(outputY, -max_angle_enc, max_angle_enc);
 
-  previous_yaw = YAW_Copy;
+  previous_yaw = YAW;
 
-  // return outputY;
+  return outputY;
 }
