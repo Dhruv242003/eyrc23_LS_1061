@@ -59,7 +59,7 @@ void read_gyro()
 
 void complimentary_filter_roll()
 {
-  roll = (1 - comp_alpha) * (roll + g[1] * dT) + (comp_alpha) * (atan(a[0] / abs(a[2]))) * (180 / 3.14);
+  roll = (1 - comp_alpha) * (roll + g[0] * dT) + (comp_alpha) * (atan(a[1] / abs(a[2]))) * (180 / 3.14);
 }
 
 void mpu_init()

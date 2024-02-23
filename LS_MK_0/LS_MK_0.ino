@@ -23,7 +23,5 @@ void loop(){
     // Serial.println(STATIC_KP_ROLL);
     readSensor();
     Serial.println(roll);
-    delay(100);
+//    delay(100);/
 }
-
-
