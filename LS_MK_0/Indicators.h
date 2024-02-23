@@ -22,7 +22,7 @@ bool magnetDetected = false;
 unsigned long magnetDetectionStartTime = 0;
 unsigned long magnetDetectionDuration = 1000;  
 
-
+float pi = 3.14159265359;
 
 void Hall_init();
 void led_init();

@@ -25,13 +25,14 @@ void setup() {
 }
 
 void loop() {
-  mpu.update();
+  // mpu.update();
 //  readSensor();
-  Serial.print(ROLL);
+
+  Serial.print(count);
   Serial.print(" ");
   // YAW = getEncoderCount();
-  Serial.println(YAW);
-  detect_magnet();
+  Serial.println(count2);
+  // detect_magnet();
   
   // buzzerOn();
   // Serial.println(ticks);

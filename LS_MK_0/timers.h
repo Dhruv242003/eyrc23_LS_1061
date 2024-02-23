@@ -2,44 +2,45 @@ void setupTimer1();
 void setupTimer2();
 void timerSetup();
 
-ISR(TIMER1_COMPA_vect) {
-  // 100 Hz Timer for reading Roll
-  // readSensor(); // MPU Reading roll
-  runIndicator();
-  // ROLL = complimentary_filter_roll();
-  ROLL = get_angle();
-}
+// volatile byte count;
+// byte reload = 0x9C;
+int count =0;
+int count2 =0;
 
-ISR(TIMER2_COMPA_vect) {
-  // 50 Hz Timer for reading Encoders
-  YAW = getEncoderCount();
- 
-  // readSensor();
-}
 
-void setupTimer1() {
-  // Set Timer1 mode to CTC (Clear Timer on Compare Match)
-  TCCR1A = 0; 
-  TCCR1B = 0;
-  TCNT1 = 0;  // Initialize counter value to 0
-  OCR1A = 15624; // Set the value that Timer1 will count up to for desired frequency (100Hz) - prescaler 1024
-  TCCR1B |= (1 << WGM12); // Set WGM12 bit for CTC mode
-  TCCR1B |= (1 << CS12) | (1 << CS10); // Set CS10 and CS12 bits for 1024 prescaler
-  TIMSK1 |= (1 << OCIE1A); // Enable Timer1 compare interrupt
+ISR(TIMER2_COMPA_vect)
+{
+  OCR2A += 156;
+  count++;
+    // 10 ms timer   
+
+}
+ISR(TIMER1_COMPA_vect)
+{
+  // 20 ms timer
+  OCR1A += 34000; // Advance The COMPA Register
+  count2++;
+  // Handle The Timer Interrupt
+  //...
 }
 
 void setupTimer2() {
-  TCCR2A = 0;
-  TCCR2B = 0;
-  TCNT2 = 0; // Initialize counter value to 0
-  OCR2A = 79; // Set the value that Timer2 will count up to (50Hz frequency)
-  TCCR2A |= (1 << WGM21); // Set WGM21 bit for CTC mode
-  TCCR2B |= (1 << CS22); // Set CS22 bit for 64 prescaler
-  TIMSK2 |= (1 << OCIE2A); // Enable Timer2 compare interrupt
+  TCCR2A = 0;           // Init Timer2A
+  TCCR2B = 0;           // Init Timer2B
+  TCCR2B |= B00000111;  // Prescaler = 1024
+  OCR2A = 156;        // Timer Compare2A Register
+  TIMSK2 |= B00000010;  // Enable Timer COMPA Interrupt
+}
+
+void setupTimer1() {
+  TCCR1A = 0;           // Init Timer1A
+  TCCR1B = 0;           // Init Timer1B
+  TCCR1B |= B00000010;  // Prescaler = 8
+  OCR1A = 34000;        // Timer Compare1A Register
+  TIMSK1 |= B00000010;  // Enable Timer COMPA Interrupt
 }
 
 void timerSetup(){
-  
     setupTimer1();
     setupTimer2();
 }
