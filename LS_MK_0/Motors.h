@@ -111,7 +111,7 @@ void BO_Control(int mode, int speed)
 }
 int getEncoderCount()
 {
-    return myEnc.read();
+    return myEnc.read()/10000;
 }
 
 
