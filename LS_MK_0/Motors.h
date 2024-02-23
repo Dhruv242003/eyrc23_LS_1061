@@ -11,6 +11,7 @@ void set_dc_pwm(int pwm);
 void BO_Control(int mode, int speed);
 int getEncoderCount();
 
+
 void motors_init()
 {
     dc_motor_init();
@@ -104,29 +105,5 @@ int getEncoderCount()
 }
 
 
-void traverse(bool isTraversing){
-    double bo_speed = 0;
-    if(isTraversing){
-        if(joyY > 10){
-            bo_speed = map(joyY, 0, 100, 0, 255);
-            BO_Control(FORWARD,bo_speed);
-        }
-        else if(joyY< 10){
-            bo_speed = map(joyY, 0, -100, 0, 255);
-            BO_Control(BACKWARD,bo_speed);
-        } 
-        else {
-            BO_Control(STOP,0);
-        }
-    }
-}
 
-void steer(){
-    if(joyY > 10){
-        STEER_ANGLE += 0.35 * (pi / 180);
-    }
-    else if(joyY > 10){
-        STEER_ANGLE -= 0.35 * (pi / 180);
-    }
-}
 
