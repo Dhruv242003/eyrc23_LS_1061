@@ -12,7 +12,7 @@
 #define in3 9
 #define in4 4
 
-
+double pi = 3.14159265359;
 float vel;
 
 // IMU
@@ -21,10 +21,17 @@ unsigned long timer = 0;
 
 
 // Control Variables
-float x, y, z;
-float k[4] = {26, 18.665, -6.5, -29.95};
+double x, y, z;
+double xx, yy, zz;
+
+
+//double k[4] = {0, 0 , -6.5*10 , -29.95*30 };
+
+double k[4] = {2*26 , 3.5*18.665 , 2*-6.5 , 3.5*-29.95};
+
+
 double x1, x2, x3, x4, U;
-float error_alpha_dot, error_alpha, error_theta_dot, error_theta;
+double error_alpha_dot, error_alpha, error_theta_dot, error_theta;
 
 
 // Init Functions
@@ -86,18 +93,27 @@ void printMPUStatus(byte status) {
 
 
 //Print Roll,Pitch,Yaw
-void printMPUData(){
+void printMPUData() {
   if ((millis() - timer) > 10) {
-    x = mpu.getAngleX();
-    y = mpu.getAngleY();
-    z = mpu.getAngleZ();
+    xx = (mpu.getAngleX() * pi) / 180;
+    yy = (mpu.getAngleY() * pi) / 180;
+    zz = (mpu.getAngleZ() * pi) / 180;
 
     Serial.print("X : ");
-    Serial.print(mpu.getAngleX());
+    Serial.print(xx, 6);
     Serial.print("\tY : ");
-    Serial.print(mpu.getAngleY());
+    Serial.print(yy, 6);
     Serial.print("\tZ : ");
-    Serial.println(mpu.getAngleZ());
+    Serial.print(zz, 6);
+
+    Serial.print("\tVel_X : ");
+    Serial.print(((mpu.getGyroX() * pi) / 180), 6);
+    Serial.print("\tVel_Y : ");
+    Serial.print(((mpu.getGyroY() * pi) / 180), 6);
+    Serial.print("\tVel_Z : ");
+    Serial.println(((mpu.getGyroZ() * pi) / 180), 6);
+
+
     timer = millis();
   }
 }
@@ -127,31 +143,41 @@ void setup() {
 void sensing() {
   // MPU6050 data
   mpu.update();
-  printMPUData();
-  
+  //printMPUData();
+
+  x = mpu.getAngleX();   // Roll
+  y = mpu.getAngleY();   // Pitch
+  z = mpu.getAngleZ();   // Yaw
 
   error_alpha_dot = 0 - mpu.getGyroZ();
-  error_alpha = 0 - y;
-  error_theta_dot = 0 - mpu.getGyroY();
+  error_alpha = 0 - z;
+  error_theta_dot = 0 - mpu.getGyroX();
   error_theta = 0 - x;
+
+
+  x1 = -error_alpha_dot;
+  x2 = -error_alpha;
+  x3 = error_theta_dot;
+  x4 = error_theta;
+
+  U = k[0] * x1 + k[1] * x2 + k[2] * x3 + k[3] * x4;
+  Serial.print(U);
+  Serial.print("      ");
+  vel = map(U, -1000, 1000, -255, 255);
+  Serial.println(-vel);
 }
 
 
 
 void actuate() {
-  x1 = error_alpha_dot;
-  x2 = error_alpha;
-  x3 = error_theta_dot;
-  x4 = error_theta;
 
-  U = k[0]*x1 + k[1]*x2 + k[2]*x3 + k[3]*x4;
 
-  Serial.println(U);
+  
   // DC Motor control
-  vel = map(U, -1000, 1000, -255, 255);
-  //motor_control(-vel);
+  
+  motor_control(-vel);
+  //delay(200);
 }
-
 
 
 
