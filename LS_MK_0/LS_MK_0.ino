@@ -1,6 +1,5 @@
 #include <SPI.h>
 #include<Wire.h>
-
 #include <Wire.h>
 #include "globals.h"
 #include "nrf.h"
@@ -23,6 +22,7 @@ void loop() {
   Serial.print(" ");
   Serial.println(YAW);
   detect_magnet();
+
 }
 
 void setup_all(){
