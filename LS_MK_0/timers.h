@@ -5,12 +5,14 @@ void timerSetup();
 ISR(TIMER1_COMPA_vect) {
   // 100 Hz Timer for reading Roll
   // readSensor(); // MPU Reading roll
+  runIndicator();
   // ROLL = complimentary_filter_roll();
 }
 
 ISR(TIMER2_COMPA_vect) {
   // 50 Hz Timer for reading Encoders
   YAW = getEncoderCount();
+ 
   // readSensor();
 }
 
@@ -36,6 +38,7 @@ void setupTimer2() {
 }
 
 void timerSetup(){
+  
     setupTimer1();
     setupTimer2();
 }
