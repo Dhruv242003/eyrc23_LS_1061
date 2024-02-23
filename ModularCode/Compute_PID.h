@@ -29,38 +29,29 @@ double Compute_roll() {
 		Kd = agr_KD;
 	}
 
-  ITerm1 += (error_roll);
-  if (ITerm1 > outMax) ITerm1 = 255;
-  else if (ITerm1 < outMin) ITerm1 = -255;
+  ITerm1 += Ki*(error_roll);
+  
+  ITerm1 = constrain(ITerm1, -255, 255);
 
-  if (abs(error_roll) < 0.05) ITerm1 = 0;
-  dInput1 = (error_roll - lastInput1);  // curr - prev
+  
+  dInput1 = (roll_angle - lastInput1);  // curr - prev
 
-  output1 = Kp * error_roll + Ki * ITerm1 + Kd * dInput1;
+  output1 = Kp * error_roll + Ki * ITerm1 - Kd * dInput1;
 
-  if (output1 > outMax) output1 = outMax;
-  if (output1 < outMin) output1 = outMin;
-  //      if(output1 < 0) output1 = abs(output1);
+  output1 = constrain(output1, -255, 255);
 
-  lastInput1 = error_roll;
+
+  lastInput1 = roll_angle;
   
   return output1;
-  // }
 }
 
-/***********
-   Function Name: Compute_yaw
-   Input: error_yaw - double value representing yaw error
-          Kp - double value for proportional gain
-          Ki - double value for integral gain
-          Kd - double value for derivative gain
-   Output: double - computed output for yaw control
-   Logic: Computes PID output for yaw control
-   Example Call: Compute_yaw(error_yaw, Kp, Ki, Kd);
- ***********/
+double Compute_yaw() {
 
-double Compute_yaw(double Kp, double Ki, double Kd) {
+    double Kp =0 , Ki = 0, Kd = 0;
+    double yaw_angle;
 
+    yaw_angle = encoder_count();
 
     ITerm2 += (error_yaw);
     if (ITerm2 > outMax) ITerm2 = 255;
