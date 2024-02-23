@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <read_angle.h>
+#include "read_angle.h"
 
 double roll_offfset = 0;
 double error_roll = 0;
@@ -10,6 +10,7 @@ float max_angle_enc = 2;
 bool STOP_FLAG = true;
 double I_roll, previous_roll, D_roll;
 double I_yaw, previous_yaw, D_yaw;
+double YAW;
 
 void Compute_roll();
 
@@ -23,7 +24,7 @@ void Compute_roll()
 
   // Obtain the current tilt angle and make a copy to avoid
   // abrupt changes during current PID computation loop
-  roll_angle = roll;
+  roll_angle = ROLL;
 
   roll_setpoint = roll_offfset + outputY;
 
@@ -69,11 +70,9 @@ double Compute_yaw()
 {
 
   double Kp = 0, Ki = 0, Kd = 0;
-  double yaw_angle;
-
-  yaw_angle = getEncoderCount();
-
-  error_yaw = 0 - yaw_angle;
+  
+  double YAW_Copy = YAW;
+  error_yaw = 0 - YAW_Copy;
 
   if (!STOP_FLAG)
   {
@@ -92,13 +91,13 @@ double Compute_yaw()
   I_yaw += Ki * (error_yaw);
   I_yaw = constrain(I_yaw, -255, 255);
 
-  D_yaw = (yaw_angle - previous_yaw); // Curr - prev.
+  D_yaw = (YAW_Copy - previous_yaw); // Curr - prev.
 
   outputY = Kp * error_yaw + Ki * I_yaw - Kd * D_yaw; // same signs of kp and kd term.
 
   outputY = constrain(outputY, -max_angle_enc, max_angle_enc);
 
-  previous_yaw = yaw_angle;
+  previous_yaw = YAW_Copy;
 
   // return outputY;
 }

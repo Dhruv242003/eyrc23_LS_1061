@@ -3,7 +3,7 @@ int16_t ax, ay, az, gx, gy, gz, gnx, gny, gnz;
 float a[3] = {0, 0, 0}, g[3] = {0, 0, 0};
 
 const float pi = 3.14159265359, f_cut = 5, dT = 0.003, comp_alpha = 0.02;
-float roll = 0;
+float ROLL = 0;
 
 const float accel_sf = 16384, gyro_sf = 131;
 /******************/
@@ -59,7 +59,7 @@ void read_gyro()
 
 void complimentary_filter_roll()
 {
-  roll = (1 - comp_alpha) * (roll + g[0] * dT) + (comp_alpha) * (atan(a[1] / abs(a[2]))) * (180 / 3.14);
+  ROLL = (1 - comp_alpha) * (ROLL + g[0] * dT) + (comp_alpha) * (atan(a[1] / abs(a[2]))) * (180 / 3.14);
 }
 
 void mpu_init()
