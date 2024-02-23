@@ -11,6 +11,9 @@
 #define in4 4
 #define FORWARD	1
 #define BACKWARD 2
+#define STOP 3
+
+int STEER_ANGLE = 0;
 
 Encoder myEnc(2, 3);
 
@@ -109,10 +112,41 @@ void BO_Control(int mode, int speed)
         digitalWrite(in4, LOW);
         analogWrite(enB, speed);
     }
+    else if (mode == STOP){
+        digitalWrite(in3, LOW);
+        digitalWrite(in4, LOW);
+        analogWrite(enB, 0);
+    }
 }
 int getEncoderCount()
 {
     return myEnc.read()/10;
 }
 
+
+void traverse(bool isTraversing){
+    double bo_speed = 0;
+    if(isTraversing){
+        if(joyY > 10){
+            bo_speed = map(joyY, 0, 100, 0, 255);
+            BO_Control(FORWARD,bo_speed);
+        }
+        else if(joyY< 10){
+            bo_speed = map(joyY, 0, -100, 0, 255);
+            BO_Control(BACKWARD,bo_speed);
+        } 
+        else {
+            BO_Control(STOP,0);
+        }
+    }
+}
+
+void steer(){
+    if(joyY > 10){
+        STEER_ANGLE += 0.35 * (pi / 180);
+    }
+    else if(joyY > 10){
+        STEER_ANGLE -= 0.35 * (pi / 180);
+    }
+}
 

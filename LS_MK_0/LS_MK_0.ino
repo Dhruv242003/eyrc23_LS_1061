@@ -4,12 +4,12 @@
 #include <Wire.h>
 #include "I2Cdev.h"
 //#include "MPU6050.h"
-#include "Motors.h"
 #include "nrf.h"
 //#include "read_angle.h"
 #include "angle.h"
 #include "Compute_PID.h"
 #include "Indicators.h"
+#include "Motors.h"
 #include "timers.h"
 
 
@@ -25,16 +25,10 @@ void setup() {
 }
 
 void loop() {
-  // mpu.update();
-//  readSensor();
+  mpu.update();
 
-  Serial.print(count);
+  Serial.print(ROLL);
   Serial.print(" ");
-  // YAW = getEncoderCount();
-  Serial.println(count2);
-  // detect_magnet();
-  
-  // buzzerOn();
-  // Serial.println(ticks);
-  //  delay(10);
+  Serial.println(YAW);
+  detect_magnet();
 }

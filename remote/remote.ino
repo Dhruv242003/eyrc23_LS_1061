@@ -1,8 +1,8 @@
 #include <SPI.h>
 #include <RF24.h>
 
-const int VRx = A0;  // analog pin for x-axis
-const int VRy = A1;  // analog pin for y-axis
+const int VRx = A1;  // analog pin for x-axis
+const int VRy = A0;  // analog pin for y-axis
 const int SW = 7;    // Digital pin for the button
 int x_value, y_value, button_state;
 

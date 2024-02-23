@@ -2,33 +2,22 @@ void setupTimer1();
 void setupTimer2();
 void timerSetup();
 
-// volatile byte count;
-// byte reload = 0x9C;
-int count =0;
-int count2 =0;
-
-
-ISR(TIMER2_COMPA_vect)
-{
+ISR(TIMER2_COMPA_vect) {
+  // 10 ms timer
   OCR2A += 156;
-  count++;
-    // 10 ms timer   
-
+  ROLL = get_angle();
 }
-ISR(TIMER1_COMPA_vect)
-{
+ISR(TIMER1_COMPA_vect) {
   // 20 ms timer
-  OCR1A += 34000; // Advance The COMPA Register
-  count2++;
-  // Handle The Timer Interrupt
-  //...
+  OCR1A += 34000;  // Advance The COMPA Register
+  YAW = getEncoderCount();
 }
 
 void setupTimer2() {
   TCCR2A = 0;           // Init Timer2A
   TCCR2B = 0;           // Init Timer2B
   TCCR2B |= B00000111;  // Prescaler = 1024
-  OCR2A = 156;        // Timer Compare2A Register
+  OCR2A = 156;          // Timer Compare2A Register
   TIMSK2 |= B00000010;  // Enable Timer COMPA Interrupt
 }
 
@@ -40,7 +29,7 @@ void setupTimer1() {
   TIMSK1 |= B00000010;  // Enable Timer COMPA Interrupt
 }
 
-void timerSetup(){
-    setupTimer1();
-    setupTimer2();
+void timerSetup() {
+  setupTimer1();
+  setupTimer2();
 }

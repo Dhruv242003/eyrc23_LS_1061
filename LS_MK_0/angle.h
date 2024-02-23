@@ -35,6 +35,5 @@ void mpu_init()
 
 double get_angle()
 {
-  ROLL = -mpu.getAngleX();
-  return ROLL;
+  return -mpu.getAngleX();
 }
