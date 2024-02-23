@@ -26,8 +26,11 @@ void mpu_init()
   // mpu.setGyroOffsets(-0.090294, -1.4525, -1.08892625);
   // mpu.setAccOffsets(0.031191375, -0.0083, 0.0602215);
 
-  mpu.setGyroOffsets(1.208336, -1.65, -1.592856);
-  mpu.setAccOffsets(0.037885, 0.01, 0.065807);
+  // mpu.setGyroOffsets(1.208336, -1.65, -1.592856);
+  // mpu.setAccOffsets(0.037885, 0.01, 0.065807);
+
+  mpu.setGyroOffsets(-3.35, -3.16, -0.54);
+  mpu.setAccOffsets(0.10, 0.00, -0.01);
 
 }
 

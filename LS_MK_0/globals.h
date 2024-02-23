@@ -5,7 +5,7 @@ double error_roll = 0;
 double roll_setpoint = 0;
 double error_yaw = 0;
 double output_roll = 0, output_yaw = 0;
-
+unsigned long lastTime_PID = 0;
 double U;
 double vel;
 
@@ -74,7 +74,7 @@ float pi = 3.14159265359;
 #define STOP 3
 
 int STEER_ANGLE = 0;
-#define BO_MIN_PWM 100
+#define BO_MAX_PWM 240
 #define DC_MIN_PWM 55
 
 

@@ -18,7 +18,7 @@ void get_NRF_Gains()
 
         radio.read(&receivedValues, sizeof(receivedValues));
         isTraversing = receivedValues.static_tuning;
-        if (isTraversing)
+        if (!isTraversing)
         {
             STATIC_KP_ROLL = receivedValues.array[0];
             STATIC_KI_ROLL = receivedValues.array[1];
@@ -36,6 +36,8 @@ void get_NRF_Gains()
             TRAVERSE_KI_YAW = receivedValues.array[4];
             TRAVERSE_KD_YAW = receivedValues.array[5];
         }
+
+        // Serial.println(STATIC_KP_ROLL);
 
         joyX = receivedValues.x;
         joyY = receivedValues.y;

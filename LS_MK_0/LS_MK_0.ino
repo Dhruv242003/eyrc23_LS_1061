@@ -9,6 +9,7 @@
 #include "Compute_PID.h"
 #include "Indicators.h"
 #include "timers.h"
+#include "controller.h"
 
 void setup() {
   Serial.begin(9600);
@@ -18,11 +19,12 @@ void setup() {
 void loop() {
   mpu.update();
 
-  Serial.print(ROLL);
-  Serial.print(" ");
-  Serial.println(YAW);
-  detect_magnet();
+  // Serial.print(ROLL);
+  // Serial.print(" ");
+  // Serial.println(YAW);
 
+  get_NRF_Gains();
+  scheduler();
 }
 
 void setup_all(){

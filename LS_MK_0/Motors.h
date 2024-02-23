@@ -11,6 +11,7 @@ void set_dc_pwm(int pwm);
 void BO_Control(int mode, int speed);
 int getEncoderCount();
 
+
 void motors_init()
 {
     dc_motor_init();
@@ -40,12 +41,12 @@ void actuate_DC(int pwm)
 {
   if (pwm > 0)
   {
-      pwm = map(pwm, 0, 255, DC_MIN_PWM, 255);
+      pwm = map(pwm, 0, 255, 0, BO_MAX_PWM);
       set_dc_pwm(pwm);
   }
   else if (pwm < 0)
   {
-      pwm = map(pwm, 0, -255, DC_MIN_PWM, 255);
+      pwm = map(pwm, 0, -255, 0, BO_MAX_PWM);
       set_dc_pwm(-pwm);
   }
   else
@@ -79,7 +80,7 @@ void set_dc_pwm(int pwm)
 
 void BO_Control(int mode, int speed)
 {
-    speed = map(speed, 0, 255, BO_MIN_PWM, 200);
+    speed = map(speed, 0, 255, 0, BO_MAX_PWM);
     if (mode == FORWARD)
     {
         digitalWrite(in3, LOW);
@@ -104,29 +105,5 @@ int getEncoderCount()
 }
 
 
-void traverse(bool isTraversing){
-    double bo_speed = 0;
-    if(isTraversing){
-        if(joyY > 10){
-            bo_speed = map(joyY, 0, 100, 0, 255);
-            BO_Control(FORWARD,bo_speed);
-        }
-        else if(joyY< 10){
-            bo_speed = map(joyY, 0, -100, 0, 255);
-            BO_Control(BACKWARD,bo_speed);
-        } 
-        else {
-            BO_Control(STOP,0);
-        }
-    }
-}
 
-void steer(){
-    if(joyY > 10){
-        STEER_ANGLE += 0.35 * (pi / 180);
-    }
-    else if(joyY > 10){
-        STEER_ANGLE -= 0.35 * (pi / 180);
-    }
-}
 
