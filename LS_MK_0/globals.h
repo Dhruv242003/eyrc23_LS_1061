@@ -36,8 +36,8 @@ double Kd_y = 0;
 #define LED_GREEN A0
 #define LED_RED A1
 #define BUZZER 7
-#define HALL_RIGHT A6
-#define HALL_LEFT A7
+#define HALL_RIGHT A7
+#define HALL_LEFT A6
 
 double base_left = 0;
 double base_right = 0;
@@ -114,11 +114,12 @@ void get_NRF_Gains();
 struct DataPacket
 {
     float array[6];
-    bool static_tuning;
+    bool isTraversing;
     int x;
     int y;
-    int b1;
-    int b2;
+    int sw = 0;
+    int b1 = 0;
+    int b2 = 0;
 } receivedValues;
 
 

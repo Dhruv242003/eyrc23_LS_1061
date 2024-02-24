@@ -17,7 +17,7 @@ void get_NRF_Gains()
     {
 
         radio.read(&receivedValues, sizeof(receivedValues));
-        isTraversing = receivedValues.static_tuning;
+        isTraversing = receivedValues.isTraversing;
         if (!isTraversing)
         {
             STATIC_KP_ROLL = receivedValues.array[0];
