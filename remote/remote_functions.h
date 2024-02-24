@@ -136,5 +136,5 @@ void remoteScheduler() {
   serialInput();
   handleJoyStick();
   handleButtons();
-  // printTransmitted();
+  printTransmitted();
 }
