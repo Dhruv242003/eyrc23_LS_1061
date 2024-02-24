@@ -113,13 +113,13 @@ void get_NRF_Gains();
 
 struct DataPacket
 {
-    float array[6];
-    bool isTraversing;
-    int x;
-    int y;
-    int sw = 0;
-    int b1 = 0;
-    int b2 = 0;
+  float array[6] = {100, 0, 80, 0, 0, 0}; // Use float instead of double
+  bool isTraversing;
+  int x;  // Use int8_t instead of int
+  int y;  // Use int8_t instead of int
+  int8_t sw = 0; // Use int8_t instead of int
+  int8_t b1 = 0; // Use int8_t instead of int
+  int8_t b2 = 0; // Use int8_t instead of int
 } receivedValues;
 
 
