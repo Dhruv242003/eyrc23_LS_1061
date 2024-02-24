@@ -90,11 +90,11 @@ void traverse(bool isTraversing)
 
 void steer()
 {
-    if (joyY > 10)
+    if (joyX > 10)
     {
         STEER_ANGLE += 0.35 * (pi / 180);
     }
-    else if (joyY < -10)
+    else if (joyX < -10)
     {
         STEER_ANGLE -= 0.35 * (pi / 180);
     }
