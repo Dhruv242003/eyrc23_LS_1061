@@ -94,7 +94,7 @@ void steer()
     {
         STEER_ANGLE += 0.35 * (pi / 180);
     }
-    else if (joyY > 10)
+    else if (joyY < -10)
     {
         STEER_ANGLE -= 0.35 * (pi / 180);
     }
