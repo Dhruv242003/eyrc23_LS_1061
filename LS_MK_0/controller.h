@@ -6,7 +6,7 @@ void scheduler();
 
 void scheduler(){
 
-    detect_magnet();
+    // detect_magnet();
 
     if((millis() - lastTime_PID) >= 12){
         lastTime_PID = millis();
@@ -19,7 +19,7 @@ void scheduler(){
 
 void actuate()
 {
-    int type = CASCADED2;
+    int type = CASCADED1;
 
     //////////      CASCADED  HEETHESH   ////////
     if (type == CASCADED1)
@@ -73,12 +73,12 @@ void traverse(bool isTraversing)
     {
         if (joyY > 10)
         {
-            bo_speed = map(joyY, 0, 100, 0, 255);
+            bo_speed = map(joyY, 10, 100, 0, 255);
             BO_Control(FORWARD, bo_speed);
         }
-        else if (joyY < 10)
+        else if (joyY < -10)
         {
-            bo_speed = map(joyY, 0, -100, 0, 255);
+            bo_speed = map(joyY, -10, -100, 0, 255);
             BO_Control(BACKWARD, bo_speed);
         }
         else

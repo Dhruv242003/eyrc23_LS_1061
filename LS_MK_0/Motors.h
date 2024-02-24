@@ -41,12 +41,12 @@ void actuate_DC(int pwm)
 {
   if (pwm > 0)
   {
-      pwm = map(pwm, 0, 255, 0, BO_MAX_PWM);
+      pwm = map(pwm, 0, 255, DC_MIN_PWM, DC_MAX_PWM);
       set_dc_pwm(pwm);
   }
   else if (pwm < 0)
   {
-      pwm = map(pwm, 0, -255, 0, BO_MAX_PWM);
+      pwm = map(pwm, 0, -255, DC_MIN_PWM, DC_MAX_PWM);
       set_dc_pwm(-pwm);
   }
   else

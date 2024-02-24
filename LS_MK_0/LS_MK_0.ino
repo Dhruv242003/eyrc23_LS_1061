@@ -19,10 +19,10 @@ void setup() {
 void loop() {
   mpu.update();
 
-  // Serial.print(ROLL);
+  // Serial.println(ROLL);
   // Serial.print(" ");
   // Serial.println(YAW);
-
+  roll_yaw_indicator();
   get_NRF_Gains();
   scheduler();
 }

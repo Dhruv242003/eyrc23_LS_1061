@@ -75,7 +75,8 @@ float pi = 3.14159265359;
 
 int STEER_ANGLE = 0;
 #define BO_MAX_PWM 240
-#define DC_MIN_PWM 55
+#define DC_MIN_PWM 0
+#define DC_MAX_PWM 235
 
 
 ////////////  nrf.h  ////////////
