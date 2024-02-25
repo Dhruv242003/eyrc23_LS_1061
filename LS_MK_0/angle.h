@@ -13,13 +13,16 @@ void printMPUStatus(byte status) {
   }
 }
 
-void mpu_init()
-{
+void mpu_init() {
   Wire.begin();
   byte status = mpu.begin();
   printMPUStatus(status);
-
+  digitalWrite(LED_GREEN, HIGH);
+  digitalWrite(LED_RED, HIGH);
   mpu.calcOffsets();
+  digitalWrite(LED_GREEN, HIGH);
+  digitalWrite(LED_RED, HIGH);
+  
   // printOffSets();
 
   //  mpu.setGyroOffsets(-0.214046 , -1.31, -0.940916);
@@ -37,16 +40,13 @@ void mpu_init()
 
   // mpu.setGyroOffsets(-3.387235 , -2.86, -0.050748);
   // mpu.setAccOffsets(0.068582, -0.00, -0.002664);
-
-
 }
 
-double get_angle()
-{
+double get_angle() {
   return -mpu.getAngleX();
 }
 
-void printOffSets(){
+void printOffSets() {
   Serial.print("\tGyroXoffset : ");
   Serial.print(mpu.getGyroXoffset(), 6);
   Serial.print(" \tGyroYoffset : ");
@@ -64,9 +64,4 @@ void printOffSets(){
   //GyroXoffset : -3.268946 	GyroYoffset : -2.87	GyroZoffset : -0.003969	AccXoffset : 0.071667 	AccYoffset : 0.03	AccZoffset : -0.002107
   //	GyroXoffset : -3.282472 	GyroYoffset : -2.88	GyroZoffset : -0.003206	AccXoffset : 0.071447 	AccYoffset : 0.03	AccZoffset : -0.002184
   //	GyroXoffset : -3.284215 	GyroYoffset : -2.87	GyroZoffset : -0.010443	AccXoffset : 0.071687 	AccYoffset : 0.03	AccZoffset : -0.002006
-
-
-
-
-
 }
