@@ -19,7 +19,7 @@ void scheduler(){
 
 void actuate()
 {
-    int type = CASCADED1;
+    int type = CASCADED2;
 
     //////////      CASCADED1    ////////
     if (type == CASCADED1)
@@ -94,9 +94,15 @@ void steer()
     {
       // Serial.println("hello");
       STEER_ANGLE -= 0.35;
+      if(YAW - STEER_ANGLE >= STEER_LIMIT){
+        STEER_ANGLE = -STEER_LIMIT;
+      }
     }
     else if (joyX < -10)
     {
       STEER_ANGLE += 0.35;
     }
+    if(STEER_ANGLE - YAW >= STEER_LIMIT){
+        STEER_ANGLE = STEER_LIMIT;
+      }
 }

@@ -19,11 +19,15 @@ void mpu_init() {
   printMPUStatus(status);
   digitalWrite(LED_GREEN, HIGH);
   digitalWrite(LED_RED, HIGH);
-  delay(200);
+  delay(300);
+  digitalWrite(LED_GREEN, LOW);
+  digitalWrite(LED_RED, LOW);
   mpu.calcOffsets();
   digitalWrite(LED_GREEN, HIGH);
   digitalWrite(LED_RED, HIGH);
-  delay(200);
+  delay(300);
+  digitalWrite(LED_GREEN, LOW);
+  digitalWrite(LED_RED, LOW);
   // printOffSets();
 
   //  mpu.setGyroOffsets(-0.214046 , -1.31, -0.940916);

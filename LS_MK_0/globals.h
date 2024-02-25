@@ -45,7 +45,7 @@ bool base_done = false;
 
 double hall_left = 0;
 double hall_right = 0;
-double hall_sensi = 20;
+double hall_sensi = 15;
 bool magnet_detected = false;
 
 bool flag = false;
@@ -74,6 +74,8 @@ float pi = 3.14159265359;
 #define STOP 3
 
 double STEER_ANGLE = 0;
+double STEER_FACTOR = 0.45;
+double STEER_LIMIT = 100;
 #define BO_MAX_PWM 255
 #define DC_MIN_PWM 0
 #define DC_MAX_PWM 235
