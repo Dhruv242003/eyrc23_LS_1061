@@ -21,7 +21,7 @@ void actuate()
 {
     int type = CASCADED1;
 
-    //////////      CASCADED  HEETHESH   ////////
+    //////////      CASCADED1    ////////
     if (type == CASCADED1)
     {
         double YAW_Copy = YAW;
@@ -37,7 +37,7 @@ void actuate()
     }
     else if (type == CASCADED2)
     {
-        ///////// CASCADED EYANTRA ///////////
+        ///////// CASCADED2 ///////////
         double YAW_Copy = YAW;
         error_yaw = STEER_ANGLE - YAW_Copy;
         output_yaw = Compute_yaw(error_yaw);
@@ -92,10 +92,11 @@ void steer()
 {
     if (joyX > 10)
     {
-        STEER_ANGLE += 0.35 * (pi / 180);
+      // Serial.println("hello");
+      STEER_ANGLE -= 0.35;
     }
     else if (joyX < -10)
     {
-        STEER_ANGLE -= 0.35 * (pi / 180);
+      STEER_ANGLE += 0.35;
     }
 }

@@ -73,8 +73,8 @@ float pi = 3.14159265359;
 #define BACKWARD 2
 #define STOP 3
 
-int STEER_ANGLE = 0;
-#define BO_MAX_PWM 240
+double STEER_ANGLE = 0;
+#define BO_MAX_PWM 255
 #define DC_MIN_PWM 0
 #define DC_MAX_PWM 235
 
