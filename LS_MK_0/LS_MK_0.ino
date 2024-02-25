@@ -23,7 +23,7 @@ void loop() {
   // Serial.print(" ");
   // Serial.println(YAW);f
   
-  roll_yaw_indicator();
+  // roll_yaw_indicator();
   get_NRF_Gains();
   scheduler();
 }

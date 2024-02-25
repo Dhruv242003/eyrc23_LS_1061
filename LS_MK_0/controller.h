@@ -6,7 +6,7 @@ void scheduler();
 
 void scheduler(){
 
-    // detect_magnet();
+    detect_magnet();
 
     if((millis() - lastTime_PID) >= 12){
         lastTime_PID = millis();

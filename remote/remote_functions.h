@@ -35,7 +35,7 @@ void remote_init();
 
 
 struct DataPacket {
-  float array[6] = { 100, 0, 80, 0, 0, 0 };  // Use float instead of double
+  float array[6] = { 90 ,20 ,90, 0.3, 0 ,9 };  // Use float instead of double
   bool isTraversing;
   int x;          // Use int8_t instead of int
   int y;          // Use int8_t instead of int

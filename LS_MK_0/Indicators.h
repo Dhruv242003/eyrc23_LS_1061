@@ -74,18 +74,17 @@ void detect_magnet() {
   if (!magnet_detected) {
     hall_right = analogRead(HALL_RIGHT);
     hall_left = analogRead(HALL_LEFT);
-
     if (northDetected()) {
       // Positive Magnet
-      digitalWrite(LED_GREEN, HIGH);
-      digitalWrite(LED_RED, LOW);
+      digitalWrite(LED_GREEN, LOW);
+      digitalWrite(LED_RED, HIGH);
       magnet_detected = true;
       ledStartTime = millis();     // Start LED timer
       buzzerStartTime = millis();  // Start buzzer timer
     } else if (southDetected()) {
       // Negative Magnet
-      digitalWrite(LED_GREEN, LOW);
-      digitalWrite(LED_RED, HIGH);
+      digitalWrite(LED_GREEN, HIGH);
+      digitalWrite(LED_RED, LOW);
       magnet_detected = true;
       ledStartTime = millis();     // Start LED timer
       buzzerStartTime = millis();  // Start buzzer timer
@@ -95,9 +94,13 @@ void detect_magnet() {
       magnet_detected = false;
     }
   }
-
+  if(millis() - ledStartTime >= 3000){
+      digitalWrite(LED_GREEN, LOW);
+      digitalWrite(LED_RED, LOW);
+      
+    }
   // Turn off LEDs after 3 seconds
-  if (millis() - ledStartTime >= 3000) {
+  if (millis() - ledStartTime >= 12000) {
     digitalWrite(LED_GREEN, LOW);
     digitalWrite(LED_RED, LOW);
     magnet_detected = false;
