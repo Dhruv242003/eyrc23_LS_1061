@@ -122,8 +122,6 @@ void detect_magnet() {
 void runIndicator(){
   if (RUN_START == 1 || RUN_END == 1) {
     buzzerOn();
-  } else if(RUN_START == 0 || RUN_END == 0) {
-    buzzerOff();
   }
 }
 
