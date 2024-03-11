@@ -51,6 +51,10 @@ double get_angle() {
   return -mpu.getAngleX();
 }
 
+double get_vel() {
+  return mpu.getGyroX();
+}
+
 void printOffSets() {
   Serial.print("\tGyroXoffset : ");
   Serial.print(mpu.getGyroXoffset(), 6);

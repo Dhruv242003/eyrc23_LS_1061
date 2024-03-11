@@ -9,7 +9,7 @@ ISR(TIMER2_COMPA_vect) {
 }
 ISR(TIMER1_COMPA_vect) {
   // 10 ms timer
-  
+
   OCR1A += 20000;  // Advance The COMPA Register
   YAW = -getEncoderCount(); 
 }
