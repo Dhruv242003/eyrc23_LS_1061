@@ -106,3 +106,13 @@ void steer()
     //     STEER_ANGLE = STEER_LIMIT;
     //   }
 }
+
+// Some functions for ERS i.e EMERGENCY RESPONSE SYSTEM
+
+void ERS(){
+    if(ROLL > 10 || ROLL < -10){
+        actuate_DC(0);
+        BO_Control(STOP, 0);
+        myEnc.write(0);   // makes the YAW 0  
+    }      
+}

@@ -5,14 +5,13 @@ void timerSetup();
 ISR(TIMER2_COMPA_vect) {
   // 10 ms timer
   OCR2A += 156;
-  
+  ROLL = get_angle();
 }
 ISR(TIMER1_COMPA_vect) {
   // 10 ms timer
   
   OCR1A += 20000;  // Advance The COMPA Register
-  YAW = -getEncoderCount();
-  ROLL = get_angle();
+  YAW = -getEncoderCount(); 
 }
 
 void setupTimer2() {
