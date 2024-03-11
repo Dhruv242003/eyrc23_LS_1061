@@ -1,9 +1,17 @@
 /////////////// Actuate.h   //////////// 
 double YAW;
+double angularVelocity = 0;
+double YAW_VEL = 0;
+long newPosition = 0;
+long oldPosition = -999;
+double cur_yaw = 0;
+double oldYaw = 0;
 double roll_offset = 0;
 double error_roll = 0;
 double roll_setpoint = 0;
 double error_yaw = 0;
+double error_yaw_vel = 0;
+double error_roll_vel = 0;
 double output_roll = 0, output_yaw = 0;
 unsigned long lastTime_PID = 0;
 double U;
@@ -15,7 +23,7 @@ double vel;
 
 /////////////// angle.h   //////////// 
 double ROLL = 0;
-
+double VEL_ROLL = 0;
 /////////////// Compute_PID.h  ////////////
 
 double outputR, outputY;
@@ -30,6 +38,14 @@ double Kd_r = 0;
 double Kp_y = 0;
 double Ki_y = 0;
 double Kd_y = 0; 
+
+
+//////////////  LQR ///////////////
+double K1 = 0;
+double K2 = 0;
+double K3 = 0; 
+double K4 = 0;
+
 
 //////////// Indicators.h  ////////////
 

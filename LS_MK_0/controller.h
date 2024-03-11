@@ -61,6 +61,22 @@ void actuate()
 
         U = output_roll + output_yaw;
     }
+    else if (type == LQR)
+    {
+        ///////////  LQR  ///////////////
+        double YAW_Copy = YAW;
+        double yaw_vel = YAW_VEL;
+        error_yaw = STEER_ANGLE - YAW_Copy;
+        error_yaw_vel = 0 - yaw_vel;
+        
+
+        double roll_angle = ROLL;
+        double roll_vel = VEL_ROLL;
+        error_roll = (roll_offset - roll_angle);
+        error_roll_vel = 0 - roll_vel;
+
+        U = ((K1*error_yaw_vel) + (K2*error_yaw) + (K3*error_roll_vel) + (K4*error_roll));
+    }
     vel = constrain(U, -255, 255);
 
     actuate_DC(vel);
