@@ -19,8 +19,6 @@ void get_NRF_Gains()
         radio.read(&receivedValues, sizeof(receivedValues));
         isTraversing = receivedValues.isTraversing;
 
-        int type = LQR;
-
         if(type == CASCADED1){
             if (!isTraversing)
             {

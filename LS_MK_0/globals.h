@@ -21,6 +21,7 @@ double vel;
 #define CASCADED2 2   // CASCADED EYANTRA
 #define PARALLEL 3
 #define LQR 4
+int type = CASCADED1;
 
 /////////////// angle.h   //////////// 
 double ROLL = 0;

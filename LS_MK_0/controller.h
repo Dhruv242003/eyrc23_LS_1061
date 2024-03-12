@@ -8,7 +8,7 @@ void scheduler(){
 
     // detect_magnet();
     runIndicator();
-    if((millis() - lastTime_PID) >= 12){
+    if((millis() - lastTime_PID) >= 20){
         lastTime_PID = millis();
         actuate();
         traverse(isTraversing);
@@ -19,8 +19,6 @@ void scheduler(){
 
 void actuate()
 {
-    int type = LQR;
-
     //////////      CASCADED1    ////////
     if (type == CASCADED1)
     {
