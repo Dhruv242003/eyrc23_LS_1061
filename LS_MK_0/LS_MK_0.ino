@@ -5,11 +5,11 @@
 #include "nrf.h"
 //#include "read_angle.h"
 #include "Motors.h"
-#include "angle.h"
+#include "angle.h"  
 #include "Compute_PID.h"
 #include "Indicators.h"
-#include "timers.h"
 #include "controller.h"
+#include "timers.h"
 
 void setup() {
   Serial.begin(9600);
@@ -21,13 +21,16 @@ void loop() {
 
   // Serial.println(ROLL);
   // Serial.print(" ");
-  // Serial.println(YAW);f
+  // Serial.println(YAW);
+
+
+      
   
   // roll_yaw_indicator();   // Using LED's for indicating roll and pitch for making tuninig easy
   get_NRF_Gains();
   scheduler();
  
-  ERS();  // EMERGENCY RESPONSE SYSTEM for manual interventions
+  // ERS();  // EMERGENCY RESPONSE SYSTEM for manual interventions
 
 
 }

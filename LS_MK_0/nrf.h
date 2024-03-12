@@ -19,7 +19,7 @@ void get_NRF_Gains()
         radio.read(&receivedValues, sizeof(receivedValues));
         isTraversing = receivedValues.isTraversing;
 
-        if(type == CASCADED1){
+        if(type == CASCADED1 || type == CASCADED2 || type == PARALLEL){
             if (!isTraversing)
             {
                 STATIC_KP_ROLL = receivedValues.array[0];

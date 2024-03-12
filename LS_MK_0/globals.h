@@ -95,7 +95,7 @@ double STEER_ANGLE = 0;
 double STEER_FACTOR = 0.52;
 double STEER_LIMIT = 140;
 #define BO_MAX_PWM 255
-#define DC_MIN_PWM 0
+#define DC_MIN_PWM 55
 #define DC_MAX_PWM 235
 
 ////////////  nrf.h  ////////////

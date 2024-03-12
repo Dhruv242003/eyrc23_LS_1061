@@ -104,16 +104,47 @@ int getEncoderCount()
     return myEnc.read() / 10;
 }
 
-double getEncoderVel(double yaw_angle)
+double getEncoderVel()
 {
-    newPosition = yaw_angle;
+    newPosition = YAW;
     if (newPosition != oldPosition && newPosition % 2 == 0)
     {
         oldPosition = newPosition;
-        newPosition = newPosition / 2;
+        newPosition = newPosition / 2.0;
         cur_yaw = (newPosition) / 5.824;
-        angularVelocity = (cur_yaw - oldYaw) / (10);
+        angularVelocity = (cur_yaw - oldYaw) / (10.0);
         oldYaw = cur_yaw;
     }
     return angularVelocity;
+}
+
+unsigned long prevTime = 0;
+long prevEncoderCount = 0;
+
+
+float calculateVelocity() {
+  // Read the current encoder count
+  long currentEncoderCount = myEnc.read();
+
+  // Get the current time
+  unsigned long currentTime = millis();
+
+  // Calculate the time interval
+  unsigned long timeInterval = currentTime - prevTime;
+
+  // Calculate the change in encoder counts
+  long countChange = currentEncoderCount - prevEncoderCount;
+
+  // Calculate the velocity (change in counts per millisecond)
+  float velocity = static_cast<float>(countChange) / timeInterval;
+  velocity *= 10;
+  // Convert velocity to rotations per second (if encoder counts per revolution is known)
+  // Replace 360 with your encoder's counts per revolution
+  float velocity_rps = velocity / 360.0 * 1000.0;
+  
+  // Update previous values
+  prevEncoderCount = currentEncoderCount;
+  prevTime = currentTime;
+
+  return velocity_rps;
 }

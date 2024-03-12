@@ -8,12 +8,13 @@ void scheduler(){
 
     // detect_magnet();
     runIndicator();
-    if((millis() - lastTime_PID) >= 20){
-        lastTime_PID = millis();
-        actuate();
-        traverse(isTraversing);
-        steer();
-    }
+    // if((millis() - lastTime_PID) >= 20){
+    //     lastTime_PID = millis();
+        
+    //     actuate();
+    //     traverse(isTraversing);
+    //     steer();
+    // }
 
 }
 
@@ -66,14 +67,15 @@ void actuate()
         double yaw_vel = YAW_VEL;
         error_yaw = STEER_ANGLE - YAW_Copy;
         error_yaw_vel = 0 - yaw_vel;
-        
+        // Serial.println(YAW_VEL);
 
         double roll_angle = ROLL;
         double roll_vel = VEL_ROLL;
+        
         error_roll = (roll_offset - roll_angle);
         error_roll_vel = 0 - roll_vel;
-
-        U = ((K1*error_yaw_vel) + (K2*error_yaw) + (K3*error_roll_vel) + (K4*error_roll));
+        // Serial.println(error_yaw_vel);
+        U = ((K1*error_roll) + (K2*error_roll_vel)+ (K3*error_yaw) + (K4*error_yaw_vel) );
     }
     vel = constrain(U, -255, 255);
     // Serial.println(U);
