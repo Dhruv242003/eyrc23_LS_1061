@@ -30,7 +30,7 @@ void loop() {
   get_NRF_Gains();
   scheduler();
  
-  // ERS();  // EMERGENCY RESPONSE SYSTEM for manual interventions
+  ERS();  // EMERGENCY RESPONSE SYSTEM for manual interventions
 
 
 }

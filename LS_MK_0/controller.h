@@ -8,13 +8,13 @@ void scheduler(){
 
     // detect_magnet();
     runIndicator();
-    // if((millis() - lastTime_PID) >= 20){
-    //     lastTime_PID = millis();
+    if((millis() - lastTime_PID) >= 30){
+        lastTime_PID = millis();
         
-    //     actuate();
-    //     traverse(isTraversing);
-    //     steer();
-    // }
+        actuate();
+        traverse(isTraversing);
+        steer();
+    }
 
 }
 

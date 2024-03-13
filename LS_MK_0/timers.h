@@ -12,11 +12,11 @@ ISR(TIMER1_COMPA_vect) {
   // 10 ms timer
   ROLL = get_angle();
   // VEL_ROLL = get_vel();
-  lastTime_PID = millis();
+  // lastTime_PID = millis();
         
-  actuate();
-  traverse(isTraversing);
-  steer();
+  // actuate();
+  // traverse(isTraversing);
+  // steer();
   OCR1A += 20000;  // Advance The COMPA Register
 }
 
