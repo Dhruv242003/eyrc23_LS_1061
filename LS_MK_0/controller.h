@@ -3,19 +3,10 @@ void traverse(bool isTraversing);
 void steer();
 void scheduler();
 
-
 void scheduler(){
-
-    // detect_magnet();
-    runIndicator();
-    if((millis() - lastTime_PID) >= 30){
-        lastTime_PID = millis();
-        
-        actuate();
-        traverse(isTraversing);
-        steer();
-    }
-
+    actuate();
+    traverse(isTraversing);
+    steer();
 }
 
 void actuate()

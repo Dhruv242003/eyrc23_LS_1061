@@ -1,22 +1,19 @@
 void setupTimer1();
 void setupTimer2();
 void timerSetup();
+unsigned long lastExecutionTime = 0;
 
 ISR(TIMER2_COMPA_vect) {
   // 10 ms timer
   OCR2A += 156;
-  YAW = -getEncoderCount(); 
+  // ROLL = get_angle();
   // YAW_VEL = -calculateVelocity();
 }
 ISR(TIMER1_COMPA_vect) {
   // 10 ms timer
+  YAW = -getEncoderCount();
   ROLL = get_angle();
-  // VEL_ROLL = get_vel();
-  // lastTime_PID = millis();
-        
-  // actuate();
-  // traverse(isTraversing);
-  // steer();
+  scheduler();
   OCR1A += 20000;  // Advance The COMPA Register
 }
 
@@ -38,5 +35,5 @@ void setupTimer1() {
 
 void timerSetup() {
   setupTimer1();
-  setupTimer2();
+  // setupTimer2();
 }
