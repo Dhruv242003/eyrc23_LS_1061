@@ -31,6 +31,7 @@ void setupTimer1() {
   TCCR1B |= B00000010;  // Prescaler = 8
   OCR1A = 20000;        // Timer Compare1A Register
   TIMSK1 |= B00000010;  // Enable Timer COMPA Interrupt
+  
 }
 
 void timerSetup() {
