@@ -14,7 +14,7 @@ void actuate()
     //////////      CASCADED1    ////////
     if (type == CASCADED1)
     {
-        double alpha_1 = 0.1; 
+        double alpha_1 = 0.5; 
         double YAW_Copy = YAW;
         static double smoothed_output_yaw = 0;
         
