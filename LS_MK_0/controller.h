@@ -14,16 +14,25 @@ void actuate()
     //////////      CASCADED1    ////////
     if (type == CASCADED1)
     {
+        double alpha_1 = 0.1; 
         double YAW_Copy = YAW;
+        static double smoothed_output_yaw = 0;
+        
         error_yaw = STEER_ANGLE - YAW_Copy;
         output_yaw = Compute_yaw(error_yaw);
+        
+        smoothed_output_yaw = alpha_1 * smoothed_output_yaw + (1 - alpha_1) * output_yaw;
 
         double roll_angle = ROLL;
-        roll_setpoint = roll_offset + output_yaw;
+        static double smoothed_output_roll = 0;
+        
+        roll_setpoint = roll_offset + smoothed_output_yaw;
         error_roll = roll_setpoint - roll_angle;
         output_roll = Compute_roll(error_roll);
+        
+        smoothed_output_roll = alpha_1 * smoothed_output_roll + (1 - alpha_1) * output_roll;
 
-        U = output_roll;
+        U = smoothed_output_roll;
     }
     else if (type == CASCADED2)
     {
