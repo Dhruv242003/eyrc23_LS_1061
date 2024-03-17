@@ -136,6 +136,7 @@ struct DataPacket
   bool isTraversing;
   int x;  // Use int8_t instead of int
   int y;  // Use int8_t instead of int
+  
   int8_t sw = 0; // Use int8_t instead of int
   int8_t b1 = 0; // Use int8_t instead of int
   int8_t b2 = 0; // Use int8_t instead of int
