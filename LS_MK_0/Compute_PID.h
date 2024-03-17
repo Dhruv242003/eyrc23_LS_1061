@@ -52,7 +52,7 @@ double Compute_yaw(double error_yaw) {
     Kd_y = TRAVERSE_KD_YAW;
   }
 
-  I_yaw += Ki_y * (error_yaw);
+  I_yaw += Ki_y * (error_yaw) * 0.001;
   I_yaw = constrain(I_yaw, -255, 255);
 
   D_yaw = (YAW - previous_yaw);  // Curr - prev.
