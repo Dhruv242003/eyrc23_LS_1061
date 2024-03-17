@@ -17,6 +17,8 @@ unsigned long lastTime_PID = 0;
 double U;
 double vel;
 
+int SW = 0;
+
 #define CASCADED1 1   // HEETHESH
 #define CASCADED2 2   // CASCADED EYANTRA
 #define PARALLEL 3
@@ -141,6 +143,7 @@ struct DataPacket
   int8_t b1 = 0; // Use int8_t instead of int
   int8_t b2 = 0; // Use int8_t instead of int
 } receivedValues;
+
 
 
 ///// read_angle.h ////
