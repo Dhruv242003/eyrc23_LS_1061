@@ -22,7 +22,6 @@ void loop() {
   // Serial.println(ROLL);
   // Serial.print(" ");
   // Serial.println(YAW);
-
   // roll_yaw_indicator();   // Using LED's for indicating roll and pitch for making tuninig easy
   get_NRF_Gains();
   detect_magnet();

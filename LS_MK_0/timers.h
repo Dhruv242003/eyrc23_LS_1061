@@ -11,7 +11,12 @@ ISR(TIMER2_COMPA_vect) {
 }
 ISR(TIMER1_COMPA_vect) {
   // 10 ms timer
-  YAW = -getEncoderCount();
+
+  /////// LOW PASS FILTER ON YAW /////////
+  double yaw = -getEncoderCount();
+  YAW = YAW * 0.7 + yaw * 0.3;
+
+  // YAW = -getEncoderCount();
   ROLL = get_angle();
   scheduler();
   OCR1A += 20000;  // Advance The COMPA Register

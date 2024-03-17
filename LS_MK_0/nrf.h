@@ -19,7 +19,6 @@ void get_NRF_Gains()
         radio.read(&receivedValues, sizeof(receivedValues));
         isTraversing = receivedValues.isTraversing;
         SW = receivedValues.sw;
-
         if(type == CASCADED1 || type == CASCADED2 || type == PARALLEL){
             if (!isTraversing)
             {

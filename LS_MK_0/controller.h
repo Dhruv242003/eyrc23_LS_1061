@@ -11,10 +11,10 @@ void scheduler(){
 
 void actuate()
 {   
-    if (SW == 1){
-        STEER_ANGLE = 0;
-        myEnc.write(0);
-    }
+    // if (SW == 1){
+    //     STEER_ANGLE = 0;
+    //     myEnc.write(0);
+    // }
     //////////      CASCADED1    ////////
     if (type == CASCADED1)
     {
