@@ -57,7 +57,7 @@ double Compute_yaw(double error_yaw) {
 
   D_yaw = (YAW - previous_yaw);  // Curr - prev.
 
-  outputY = Kp_y * error_yaw + Ki_y * I_yaw - Kd_y * D_yaw;  // same signs of kp and kd term.
+  outputY = Kp_y * error_yaw + I_yaw - Kd_y * D_yaw;  // same signs of kp and kd term.
   outputY *= 0.1;
   outputY = constrain(outputY, -255, 255);
 
