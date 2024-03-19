@@ -28,6 +28,7 @@ int type = CASCADED1;
 /////////////// angle.h   //////////// 
 double ROLL = 0;
 double VEL_ROLL = 0;
+double roll = 0;
 /////////////// Compute_PID.h  ////////////
 
 double outputR, outputY;

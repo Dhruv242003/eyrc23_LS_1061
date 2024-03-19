@@ -19,6 +19,7 @@ void actuate()
     if (type == CASCADED1)
     {
         double alpha_1 = 0.5; 
+        double alpha_2 = 0.6;
         double YAW_Copy = YAW;
         static double smoothed_output_yaw = 0;
         
@@ -34,7 +35,7 @@ void actuate()
         error_roll = roll_setpoint - roll_angle;
         output_roll = Compute_roll(error_roll);
         
-        smoothed_output_roll = alpha_1 * smoothed_output_roll + (1 - alpha_1) * output_roll;
+        smoothed_output_roll = alpha_2 * smoothed_output_roll + (1 - alpha_2) * output_roll;
 
         U = smoothed_output_roll;
     }

@@ -17,7 +17,8 @@ ISR(TIMER1_COMPA_vect) {
   YAW = YAW * 0.7 + yaw * 0.3;
 
   // YAW = -getEncoderCount();
-  ROLL = get_angle();
+  roll = get_angle();
+  ROLL = ROLL * 0.7 + roll * 0.3;
   scheduler();
   OCR1A += 20000;  // Advance The COMPA Register
 }
