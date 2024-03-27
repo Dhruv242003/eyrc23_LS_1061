@@ -1,8 +1,8 @@
 #include <SPI.h>
 #include <RF24.h>
 
-const int VRx = A1;
-const int VRy = A0;
+const int VRx = A0;
+const int VRy = A1;
 int x_value, y_value;
 int sw_state = 0;
 
@@ -13,15 +13,15 @@ RF24 radio(7, 8);
 bool flag = false;
 
 
-#define joyXOffset 8
-#define joyYOffset 1
+#define joyXOffset 24
+#define joyYOffset 20
 
 int joyX = 0;
 int joyY = 0;
 
 #define BUTTON1 A3
-#define BUTTON2 A4
-#define SW A2
+#define BUTTON2 A2
+#define SW A4
 const byte address[6] = "00001";
 
 void printTransmitted();
@@ -35,7 +35,8 @@ void remote_init();
 
 
 struct DataPacket {
-  float array[6] = { 90 ,20 ,90, 0.3, 0 ,9 };  // Use float instead of double
+  float array[6] = { 115 , 5, 95, 0.4, 0, 15.5};  // Use float instead of double
+  // float array[6] = { 0};
   bool isTraversing;
   int x;          // Use int8_t instead of int
   int y;          // Use int8_t instead of int
@@ -66,6 +67,16 @@ void printTransmitted() {
   Serial.print(data.array[4], 4);
   Serial.print(" ");
   Serial.print(data.array[5], 4);
+  Serial.print(" ");
+  Serial.print(data.x);
+  Serial.print(" ");
+  Serial.print(data.y);
+  Serial.print(" ");
+  Serial.print(data.b1);
+  Serial.print(" ");
+  Serial.print(data.b2);
+  Serial.print(" ");
+  Serial.print(data.sw);
   Serial.println();
 }
 
@@ -77,11 +88,13 @@ void runIndicators() {
     while (millis() - time <= 1000) {
       radio.write(&data, sizeof(data));
     }
+    // data.b1 = 0;
   } else if (data.b2 == 1) {
     time = millis();
     while (millis() - time <= 5000) {
       radio.write(&data, sizeof(data));
     }
+    // data.b2 = 0;
   } else {
     data.b1 = 0;
     data.b2 = 0;
@@ -122,15 +135,19 @@ void handleJoyStick() {
   joyX = analogRead(VRx);
   joyY = analogRead(VRy);
 
-  joyX += joyXOffset;
-  joyY += joyYOffset;
+  // joyX += joyXOffset;
+  // joyY += joyYOffset;
 
-  data.x = map(joyX, 0, 889, -100, 100);
-  data.y = map(joyY, 0, 889, -100, 100);
+  
 
-  // data.x += joyXOffset;
-  // data.y += joyYOffset;
+  data.x = map(joyX, 0, 889, 100, -100);
+  data.y = map(joyY, 0, 889, 100, -100);
+  // Serial.println(data.y);
+  data.x += joyXOffset;
+  data.y += joyYOffset;
 }
+
+// 115 5 95 0.4 0 15.5
 
 void remoteScheduler() {
   serialInput();

@@ -17,10 +17,10 @@ ISR(TIMER1_COMPA_vect) {
   YAW = YAW * 0.7 + yaw * 0.3;
 
   // YAW = -getEncoderCount();
-  roll = get_angle();
-  ROLL = ROLL * 0.7 + roll * 0.3;
+  ROLL = get_angle();
+  // ROLL = ROLL * 0.7 + roll * 0.3;
   scheduler();
-  OCR1A += 20000;  // Advance The COMPA Register
+  OCR1A += 60000;  // Advance The COMPA Register
 }
 
 void setupTimer2() {
@@ -35,7 +35,7 @@ void setupTimer1() {
   TCCR1A = 0;           // Init Timer1A
   TCCR1B = 0;           // Init Timer1B
   TCCR1B |= B00000010;  // Prescaler = 8
-  OCR1A = 20000;        // Timer Compare1A Register
+  OCR1A = 60000;        // Timer Compare1A Register
   TIMSK1 |= B00000010;  // Enable Timer COMPA Interrupt
   
 }

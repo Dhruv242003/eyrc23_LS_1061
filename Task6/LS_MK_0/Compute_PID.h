@@ -34,7 +34,7 @@ double Compute_roll(double error_roll) {
   outputR = constrain(outputR, -255, 255);
 
   previous_roll = ROLL;
-
+  
   return outputR;
 }
 

@@ -12,6 +12,9 @@ void loop()
   data.isTraversing = true;
   remoteScheduler();
   delay(200); // Introduce a small delay after write
+  // Serial.print(digitalRead(BUTTON1));
+  // Serial.print(" ");
+  // Serial.println(digitalRead(BUTTON2));
   // Serial.print(data.sw);
   // Serial.print(" ");
   // Serial.print(data.b1);

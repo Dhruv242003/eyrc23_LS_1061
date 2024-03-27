@@ -19,15 +19,15 @@ void actuate()
     if (type == CASCADED1)
     {
         double alpha_1 = 0.5; 
-        double alpha_2 = 0.6;
+        double alpha_2 = 0.5;
         double YAW_Copy = YAW;
         static double smoothed_output_yaw = 0;
         
         error_yaw = STEER_ANGLE - YAW_Copy;
         output_yaw = Compute_yaw(error_yaw);
         
-        smoothed_output_yaw = alpha_1 * smoothed_output_yaw + (1 - alpha_1) * output_yaw;
-
+        // smoothed_output_yaw = alpha_1 * smoothed_output_yaw + (1 - alpha_1) * output_yaw;
+        smoothed_output_yaw = output_yaw;
         double roll_angle = ROLL;
         static double smoothed_output_roll = 0;
         
@@ -38,6 +38,7 @@ void actuate()
         smoothed_output_roll = alpha_2 * smoothed_output_roll + (1 - alpha_2) * output_roll;
 
         U = smoothed_output_roll;
+        // Serial.println(ROLL);
     }
     else if (type == CASCADED2)
     {
@@ -83,7 +84,8 @@ void actuate()
         U = ((K1*error_roll) + (K2*error_roll_vel)+ (K3*error_yaw) + (K4*error_yaw_vel) );
     }
     vel = constrain(U, -255, 255);
-    // Serial.println(U);
+    // Serial.println(vel);
+ 
     actuate_DC(vel);
 }
 
@@ -94,12 +96,12 @@ void traverse(bool isTraversing)
     {
         if (joyY > 10)
         {
-            bo_speed = map(joyY, 10, 100, 0, 255);
+            bo_speed = map(joyY, 10, 125, 0, 255);
             BO_Control(FORWARD, bo_speed);
         }
         else if (joyY < -10)
         {
-            bo_speed = map(joyY, -10, -100, 0, 255);
+            bo_speed = map(joyY, -10, -110, 0, 255);
             BO_Control(BACKWARD, bo_speed);
         }
         else
